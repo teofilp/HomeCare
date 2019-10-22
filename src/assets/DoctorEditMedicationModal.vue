@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal fade"
-    id="addModal"
+    id="editMedication"
     tabindex="-1"
     role="dialog"
     aria-labelledby="exampleModalLabel"
@@ -10,7 +10,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add medication</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Edit medication</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -60,7 +60,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" @click="saveMedication">Save medication</button>
+          <button type="button" class="btn btn-primary" @click="updateMedication">Update medication</button>
         </div>
       </div>
     </div>
@@ -69,9 +69,10 @@
 
 <script>
 export default {
-  props: ["add"],
+  props: ["update"],
   data() {
     return {
+      id: "",
       sideEffects: [],
       sideEffect: "",
       name: "",
@@ -79,16 +80,22 @@ export default {
     };
   },
   methods: {
-    openDialog() {
-      $("#addModal").modal("show");
+    openDialog(medication) {
+      $("#editMedication").modal("show");
+      this.id = medication.Id;
+      if (medication.Side_Effects[0] !== "N/a")
+        this.sideEffects = [...medication.Side_Effects];
+      this.name = medication.Name;
+      this.dosage = medication.Dosage;
     },
 
     closeDialog() {
-      $("#addModal").modal("hide");
+      $("#editMedication").modal("hide");
     },
 
     addSideEffect() {
-      this.sideEffects.push(this.sideEffect);
+      if (this.sideEffects.findIndex(side => side === this.sideEffect) == -1)
+        this.sideEffects.push(this.sideEffect);
       this.sideEffect = "";
     },
     deleteSideEffect(sideEff) {
@@ -96,10 +103,11 @@ export default {
       this.sideEffects.splice(index, 1);
       this.sideEffect = sideEff;
     },
-    saveMedication() {
+    updateMedication() {
       if (this.sideEffects.length == 0) this.sideEffects.push("N/a");
 
-      this.add({
+      this.update({
+        Id: this.id,
         Name: this.name,
         Side_Effects: this.sideEffects,
         Dosage: this.dosage

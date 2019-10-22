@@ -9,12 +9,15 @@
         <tr v-for="data in tableData" :key="data.Id">
           <td>{{data.Id}}</td>
           <td>{{data.Name}}</td>
-          <td>{{data.Side_Effects}}</td>
+          <td>
+            <ul>
+              <li v-for="side in data.Side_Effects" :key="side">{{side}}</li>
+            </ul>
+          </td>
           <td>{{data.Dosage}}</td>
           <td>
             <button class="btn btn-warning mr-3" @click="openUpdateModal(data)">Edit</button>
             <button class="btn btn-danger mr-3" @click="openDeleteModal(data.Id)">Delete</button>
-        
           </td>
         </tr>
       </tbody>
@@ -27,43 +30,38 @@
       dismissMessage="No, close"
       :delete="deleteMedication"
     ></delete-modal>
-    <add-modal ref="myAddModal" purpose="medication" :add="addMedication"></add-modal>
-    <edit-modal ref="myEditModal" purpose="medication" :update="updateMedication"></edit-modal>
+    <add-modal ref="myAddModal" :add="addMedication"></add-modal>
+    <edit-modal ref="myEditModal" :update="updateMedication"></edit-modal>
   </div>
 </template>
 
 <script>
 import DeleteModal from "../../assets/DeleteModal";
-import AddPatientModal from "../../assets/DoctorAddMedicationModal";
-import EditPatientModal from "../../assets/DoctorEditModal";
+import AddMedicationModal from "../../assets/DoctorAddMedicationModal";
+import EditMedicationModal from "../../assets/DoctorEditMedicationModal";
 export default {
   data() {
     return {
-      adminTableColumns: [
-        "Id",
-        "Name",
-        "Side Effects",
-        "Dosage"
-      ],
+      adminTableColumns: ["Id", "Name", "Side Effects", "Dosage", "Operations"],
       tableData: [
         {
           Id: 1,
           Name: "Nurofen",
-          Side_Effects: "N/a",
-          Dosage: '8h'
+          Side_Effects: ["N/a"],
+          Dosage: "1 pill"
         },
         {
           Id: 2,
           Name: "Nurofen",
-          Side_Effects: "N/a",
-          Dosage: '8h'
+          Side_Effects: ["N/a"],
+          Dosage: "2 pills"
         },
         {
           Id: 3,
           Name: "Nurofen",
-          Side_Effects: "N/a",
-          Dosage: '8h'
-        },
+          Side_Effects: ["N/a"],
+          Dosage: "5 pills"
+        }
       ]
     };
   },
@@ -92,14 +90,14 @@ export default {
       this.$refs.myEditModal.openDialog(medication);
     },
     updateMedication(medication) {
-      let oldCaregiver = this.tableData.find(cg => cg.Id == medication.Id);
+      let oldMedication = this.tableData.find(cg => cg.Id == medication.Id);
       Object.assign(oldMedication, medication);
     }
   },
   components: {
     DeleteModal,
-    AddModal: AddPatientModal,
-    EditModal: EditPatientModal
+    AddModal: AddMedicationModal,
+    EditModal: EditMedicationModal
   }
 };
 </script>
@@ -108,6 +106,7 @@ export default {
 table {
   text-align: center;
 }
+
 tbody tr:nth-of-type(odd) {
   background: rgba(71, 196, 175, 0.7);
   color: white;

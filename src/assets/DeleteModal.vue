@@ -10,11 +10,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">{{dismissMessage}}</button>
-          <button
-            type="button"
-            class="btn btn-danger"
-            @click="confirmDeletion"
-          >{{confirmMessage}}</button>
+          <button type="button" class="btn btn-danger" @click="confirmDeletion">{{confirmMessage}}</button>
         </div>
       </div>
     </div>
@@ -22,12 +18,7 @@
 </template>
 <script>
 export default {
-  props: [
-    "header",
-    "confirmMessage",
-    "dismissMessage",
-    "delete"
-  ],
+  props: ["header", "confirmMessage", "dismissMessage", "delete"],
   data() {
     return {
       id: ""
@@ -40,10 +31,10 @@ export default {
     },
     closeDialog() {
       $("#myModal").modal("hide");
-      this.delete(this.id);
     },
     confirmDeletion() {
-      $('#myModal').modal('hide');
+      $("#myModal").modal("hide");
+      this.delete(this.id);
     }
   }
 };
