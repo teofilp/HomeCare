@@ -10,7 +10,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">New caregiver</h5>
+          <h5 class="modal-title" id="exampleModalLabel">New {{purpose}}</h5>
         </div>
         <div class="modal-body">
           <form>
@@ -37,7 +37,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" @click="saveCaregiver">Add Caregiver</button>
+          <button type="button" class="btn btn-primary" @click="saveCaregiver">Add {{purpose}}</button>
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  props: ["addCaregiver"],
+  props: ["purpose", "add"],
   data() {
     return {
       name: "",
@@ -58,9 +58,14 @@ export default {
   methods: {
     openDialog() {
       $("#addModal").modal("show");
+
+      this.name = "";
+      this.address = "";
+      this.birth_date = null;
+      this.gender = null;
     },
     saveCaregiver() {
-      this.addCaregiver({
+      this.add({
         Name: this.name,
         Address: this.address,
         Birth_Date: this.birth_date,

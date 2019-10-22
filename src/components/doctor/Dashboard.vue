@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="dashboard_wrapper">
-      <admin-menu></admin-menu>
+      <doctors-menu></doctors-menu>
       <router-view></router-view>
     </div>
   </div>
@@ -11,7 +11,7 @@
 import Menu from "./Menu";
 export default {
   components: {
-    AdminMenu: Menu
+    DoctorsMenu: Menu
   }
 };
 </script>
@@ -21,7 +21,7 @@ export default {
   position: relative;
   width: 120%;
   height: 75vh;
-  background: #e3e3e3;
+  background: rgba(71, 196, 175, .3);
   box-shadow: 1px 4px 3px #ccc;
   border-radius: 0.5rem;
   margin-top: 12.5vh;

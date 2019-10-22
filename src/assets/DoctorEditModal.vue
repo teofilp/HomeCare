@@ -10,7 +10,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">New caregiver</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Edit {{purpose}}</h5>
         </div>
         <div class="modal-body">
           <form>
@@ -37,7 +37,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" @click="saveUpdates">Update Caregiver</button>
+          <button type="button" class="btn btn-primary" @click="saveUpdates">Update {{purpose}}</button>
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  props: ["updateCaregiver"],
+  props: ["purpose", "update"],
   data() {
     return {
       id: "",
@@ -66,7 +66,7 @@ export default {
       this.gender = caregiver.Gender;
     },
     saveUpdates() {
-      this.updateCaregiver({
+      this.update({
         Id: this.id,
         Name: this.name,
         Address: this.address,

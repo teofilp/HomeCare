@@ -1,15 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import AdminCaregivers from '../components/admin/Caregivers';
-
+import DoctorsCaregivers from '../components/doctor/Caregivers';
+import DoctorsPatients from '../components/doctor/Patients';
+import DoctorsMedications from '../components/doctor/Medications';
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/caregivers',
-    name: 'adminCaregivers',
-    component: AdminCaregivers
+    name: 'doctorsCaregivers',
+    component: DoctorsCaregivers
+  },
+  {
+    path: '/patients',
+    name: 'doctorsPatients',
+    component: DoctorsPatients
+  },
+  {
+    path: '/medications',
+    name: 'doctorsMedications',
+    component: DoctorsMedications
   }
 
 ]

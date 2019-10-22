@@ -13,7 +13,7 @@
           <button
             type="button"
             class="btn btn-danger"
-            @click="confirmDeletion(id)"
+            @click="confirmDeletion"
           >{{confirmMessage}}</button>
         </div>
       </div>
@@ -26,7 +26,6 @@ export default {
     "header",
     "confirmMessage",
     "dismissMessage",
-    "confirmDeletion",
     "delete"
   ],
   data() {
@@ -42,6 +41,9 @@ export default {
     closeDialog() {
       $("#myModal").modal("hide");
       this.delete(this.id);
+    },
+    confirmDeletion() {
+      $('#myModal').modal('hide');
     }
   }
 };
