@@ -36,9 +36,9 @@
 </template>
 
 <script>
-import DeleteModal from "../../assets/DeleteModal";
-import AddMedicationModal from "../../assets/DoctorAddMedicationModal";
-import EditMedicationModal from "../../assets/DoctorEditMedicationModal";
+import DeleteModal from "../components/DeleteModal";
+import AddMedicationModal from "../components/DoctorAddMedicationModal";
+import EditMedicationModal from "../components/DoctorEditMedicationModal";
 export default {
   data() {
     return {

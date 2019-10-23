@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import DoctorsCaregivers from '../components/doctor/Caregivers';
-import DoctorsPatients from '../components/doctor/Patients';
-import DoctorsMedications from '../components/doctor/Medications';
+import DoctorsCaregivers from '../components/doctor/views/Caregivers';
+import DoctorsPatients from '../components/doctor/views/Patients';
+import DoctorsMedications from '../components/doctor/views/Medications';
 Vue.use(VueRouter)
 
 const routes = [

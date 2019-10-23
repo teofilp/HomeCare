@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <button class="btn btn-info" @click="openAddDialog">Add Patient</button>
+    <button class="btn btn-info" @click="openAddDialog">Add Caregiver</button>
     <table class="table table-striped">
       <thead>
         <th v-for="column in adminTableColumns" :key="column">{{column}}</th>
@@ -13,15 +13,11 @@
           <td>{{data.Gender}}</td>
           <td>{{data.Address}}</td>
           <td>
-            <button class="btn btn-primary">Show Medical Record</button>
+            <button class="btn btn-primary" @click="openAssignedPatients(data.Assigned_Patients)">Show Patients</button>
           </td>
           <td>
             <button class="btn btn-warning mr-3" @click="openUpdateModal(data)">Edit</button>
-            <button class="btn btn-danger mr-3" @click="openDeleteModal(data.Id)">Delete</button>
-            <button
-              class="btn btn-success"
-              @click="openCreateMedicationPlanModal(data.Id)"
-            >Create medication plan</button>
+            <button class="btn btn-danger" @click="openDeleteModal(data.Id)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -29,22 +25,22 @@
 
     <delete-modal
       ref="myDeleteModal"
-      header="Are you sure you want to delete this patient?"
+      header="Are you sure you want to delete this caregiver?"
       confirmMessage="Yes, delete it"
       dismissMessage="No, close"
       :delete="deleteCaregiver"
     ></delete-modal>
-    <add-modal ref="myAddModal" purpose="patient" :add="addPatient"></add-modal>
-    <edit-modal ref="myEditModal" purpose="patient" :update="updatePatient"></edit-modal>
-    <create-medication-plan ref="createMedicationPlanRef" :addMedicationPlan="addMedicalRecord"></create-medication-plan>
+    <add-modal ref="myAddModal" purpose="caregiver" :add="addCaregiver"></add-modal>
+    <edit-modal ref="myEditModal" purpose="caregiver" :update="updateCaregiver"></edit-modal>
+    <assigned-patients ref="assignedPatients"></assigned-patients>
   </div>
 </template>
 
 <script>
-import DeleteModal from "../../assets/DeleteModal";
-import AddPatientModal from "../../assets/DoctorAddModal";
-import EditPatientModal from "../../assets/DoctorEditModal";
-import CreateMedicationPlan from "../../assets/CreateMedicationPlan";
+import DeleteModal from "../components/DeleteModal";
+import AddCaregiverModal from "../components/DoctorAddModal";
+import EditCaregiverModal from "../components/DoctorEditModal";
+import CaregiversAssignedPatientsModal from '../components/CaregiversAssignedPatients';
 export default {
   data() {
     return {
@@ -54,7 +50,7 @@ export default {
         "Birth-Date",
         "Gender",
         "Address",
-        "Medical record",
+        "Patients",
         "Operations"
       ],
       tableData: [
@@ -64,23 +60,36 @@ export default {
           Birth_Date: "2000-02-15",
           Gender: "female",
           Address: "ceva adresa",
-          Medical_Record: []
+          Assigned_Patients: [
+            {
+              Id: 2,
+              Name: "Andrei",
+              Birth_Date: "2000-02-15",
+              Gender: "male",
+              Address: "ceva adresa"
+            },
+            {
+              Id: 3,
+              Name: "Andrei",
+              Birth_Date: "2000-02-15",
+              Gender: "male",
+              Address: "ceva adresa"
+            }
+          ]
         },
         {
           Id: 2,
           Name: "Andrei",
           Birth_Date: "2000-02-15",
           Gender: "male",
-          Address: "ceva adresa",
-          Medical_Record: []
+          Address: "ceva adresa"
         },
         {
           Id: 3,
           Name: "Andrei",
           Birth_Date: "2000-02-15",
           Gender: "male",
-          Address: "ceva adresa",
-          Medical_Record: []
+          Address: "ceva adresa"
         }
       ]
     };
@@ -96,7 +105,7 @@ export default {
     openAddDialog() {
       this.$refs.myAddModal.openDialog();
     },
-    addPatient(caregiver) {
+    addCaregiver(caregiver) {
       caregiver.Id =
         this.tableData.length == 0
           ? 1
@@ -106,23 +115,19 @@ export default {
     openUpdateModal(caregiver) {
       this.$refs.myEditModal.openDialog(caregiver);
     },
-    updatePatient(caregiver) {
+    updateCaregiver(caregiver) {
       let oldCaregiver = this.tableData.find(cg => cg.Id == caregiver.Id);
       Object.assign(oldCaregiver, caregiver);
     },
-    openCreateMedicationPlanModal(id) {
-      this.$refs.createMedicationPlanRef.openDialog(id);
-    },
-    addMedicalRecord(userId, medicationPlan) {
-      let user = this.tableData.find(user => user.Id === userId);
-      user.Medical_Record.push(medicationPlan);
+    openAssignedPatients(patients) {
+      this.$refs.assignedPatients.openDialog(patients);
     }
   },
   components: {
     DeleteModal,
-    AddModal: AddPatientModal,
-    EditModal: EditPatientModal,
-    CreateMedicationPlan
+    AddModal: AddCaregiverModal,
+    EditModal: EditCaregiverModal,
+    AssignedPatients: CaregiversAssignedPatientsModal
   }
 };
 </script>

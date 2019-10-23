@@ -16,7 +16,6 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
             <div class="form-group">
               <label for="treatmentPeriod" class="col-form-label">Treatment Period:</label>
               <input
@@ -47,11 +46,11 @@
                     type="number"
                     class="form-control col-4 offset-sm-1"
                     placeholder="times / day"
-                    v-model="result.IntakeIntervals"
+                    v-model="result.Intake_Intervals"
                   />
                   <button
                     class="btn btn-primary col-2 offset-sm-1"
-                    @click.prevent="addMedicationToPlan(result)"
+                    @click="addMedicationToPlan(result)"
                   >Add</button>
                 </div>
               </div>
@@ -64,17 +63,16 @@
                   <input
                     type="text"
                     class="form-control col-4 offset-sm-1"
-                    :value="med.IntakeIntervals + ' times / day'"
+                    :value="med.Intake_Intervals + ' times / day'"
                     disabled
                   />
                   <button
                     class="btn btn-danger col-2 offset-sm-1"
-                    @click.prevent="deleteMedicationFromPlan(med)"
+                    @click="deleteMedicationFromPlan(med)"
                   >Delete</button>
                 </div>
               </div>
             </div>
-          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -113,7 +111,25 @@ export default {
         },
         {
           Id: 3,
-          Name: "Nurofen",
+          Name: "Xanax",
+          Side_Effects: ["N/a"],
+          Dosage: "5 pills"
+        },
+        {
+          Id: 4,
+          Name: "Med 1",
+          Side_Effects: ["N/a"],
+          Dosage: "1 pill"
+        },
+        {
+          Id: 5,
+          Name: "Med 2",
+          Side_Effects: ["N/a"],
+          Dosage: "2 pills"
+        },
+        {
+          Id: 6,
+          Name: "Med 3",
           Side_Effects: ["N/a"],
           Dosage: "5 pills"
         }
@@ -136,7 +152,7 @@ export default {
       return this.availableMedication.filter(
         med =>
           this.planMedications.findIndex(md => md.Id == med.Id) == -1 &&
-          med.Name.toLowerCase().match(searchKey)
+          med.Name.toLowerCase().startsWith(searchKey)
       );
     },
     addMedicationToPlan(med) {
@@ -145,7 +161,7 @@ export default {
     },
     deleteMedicationFromPlan(med) {
       let index = this.planMedications.findIndex(md => md.Id === med.Id);
-      delete this.planMedications[index].IntakeIntervals;
+      delete this.planMedications[index].Intake_Intervals;
       this.planMedications.splice(index, 1);
     },
     saveMedicationPlanToUser() {
