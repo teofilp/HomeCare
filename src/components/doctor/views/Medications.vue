@@ -39,6 +39,8 @@
 import DeleteModal from "../components/DeleteModal";
 import AddMedicationModal from "../components/DoctorAddMedicationModal";
 import EditMedicationModal from "../components/DoctorEditMedicationModal";
+import Validator from "../../../../util/Validator";
+import getNextId from "../../../../util/getNextId";
 export default {
   data() {
     return {
@@ -80,11 +82,11 @@ export default {
       this.$refs.myAddModal.openDialog();
     },
     addMedication(medication) {
-      medication.Id =
-        this.tableData.length == 0
-          ? 1
-          : Math.max(...this.tableData.map(data => data.Id)) + 1;
+      if (!Validator.isValid(this.tableData, medication, "Name"))
+        return alert("medication already exists");
+      medication.Id = getNextId(this.tableData);
       this.tableData.push(medication);
+      this.$refs.myAddModal.closeDialog();
     },
     openUpdateModal(medication) {
       this.$refs.myEditModal.openDialog(medication);

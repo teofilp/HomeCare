@@ -81,6 +81,10 @@ export default {
   methods: {
     openDialog() {
       $("#addModal").modal("show");
+      this.name = "";
+      this.sideEffects = [];
+      this.sideEffect = "";
+      this.dosage = "";
     },
 
     closeDialog() {
@@ -104,13 +108,6 @@ export default {
         Side_Effects: this.sideEffects,
         Dosage: this.dosage
       });
-
-      this.name = "";
-      this.sideEffects = [];
-      this.sideEffect = "";
-      this.dosage = "";
-
-      this.closeDialog();
     }
   }
 };

@@ -13,7 +13,10 @@
           <td>{{data.Gender}}</td>
           <td>{{data.Address}}</td>
           <td>
-            <button class="btn btn-primary" @click="openMedicalHistoryModal(data)">Show Medical Record</button>
+            <button
+              class="btn btn-primary"
+              @click="openMedicalHistoryModal(data)"
+            >Show Medical Record</button>
           </td>
           <td>
             <button class="btn btn-warning mr-3" @click="openUpdateModal(data)">Edit</button>
@@ -46,7 +49,9 @@ import DeleteModal from "../components/DeleteModal";
 import AddPatientModal from "../components/DoctorAddModal";
 import EditPatientModal from "../components/DoctorEditModal";
 import CreateMedicationPlan from "../components/CreateMedicationPlan";
-import PatientMedicalHistoryModal from '../components/PatientMedicalHistoryModal';
+import PatientMedicalHistoryModal from "../components/PatientMedicalHistoryModal";
+import Validator from "../../../../util/Validator";
+import getNextId from "../../../../util/getNextId";
 export default {
   data() {
     return {
@@ -98,9 +103,14 @@ export default {
     openAddDialog() {
       this.$refs.myAddModal.openDialog();
     },
-    addPatient(caregiver) {
-      caregiver.Id = this.getNextId(this.tableData);
-      this.tableData.push(caregiver);
+    addPatient(patient) {
+      if (!Validator.isValid(this.tableData, patient, "Name"))
+        return alert("caregiver already exists");
+
+      patient.Id = getNextId(this.tableData);
+      this.tableData.push(patient);
+
+      this.$refs.myAddModal.closeDialog();
     },
     openUpdateModal(caregiver) {
       this.$refs.myEditModal.openDialog(caregiver);
@@ -114,18 +124,13 @@ export default {
     },
     addMedicalRecord(userId, medicationPlan) {
       let user = this.tableData.find(user => user.Id === userId);
-      medicationPlan.Id = this.getNextId(user.Medical_Record);
+      medicationPlan.Id = getNextId(user.Medical_Record);
       user.Medical_Record.push(medicationPlan);
     },
     openMedicalHistoryModal(patient) {
-      if(patient.Medical_Record.length === 0)
-        return alert('Patient has no Medical History');
+      if (patient.Medical_Record.length === 0)
+        return alert("Patient has no Medical History");
       this.$refs.medicalHistory.openDialog(patient);
-    },
-    getNextId(list) {
-      return list.length == 0
-          ? 1
-          : Math.max(...list.map(data => data.Id)) + 1;
     }
   },
   components: {

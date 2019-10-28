@@ -13,11 +13,15 @@
           <td>{{data.Gender}}</td>
           <td>{{data.Address}}</td>
           <td>
-            <button class="btn btn-primary" @click="openAssignedPatients(data.Assigned_Patients)">Show Patients</button>
+            <button
+              class="btn btn-primary"
+              @click="openAssignedPatients(data.Assigned_Patients)"
+            >Show Patients</button>
           </td>
           <td>
             <button class="btn btn-warning mr-3" @click="openUpdateModal(data)">Edit</button>
-            <button class="btn btn-danger" @click="openDeleteModal(data.Id)">Delete</button>
+            <button class="btn btn-danger mr-3" @click="openDeleteModal(data.Id)">Delete</button>
+            <button class="btn btn-success" @click="openAddPatientModal(data)">Add Patient</button>
           </td>
         </tr>
       </tbody>
@@ -33,6 +37,11 @@
     <add-modal ref="myAddModal" purpose="caregiver" :add="addCaregiver"></add-modal>
     <edit-modal ref="myEditModal" purpose="caregiver" :update="updateCaregiver"></edit-modal>
     <assigned-patients ref="assignedPatients"></assigned-patients>
+    <assign-patient
+      ref="assignPatient"
+      :assign="addPatientToCaregiver"
+      :unassign="deletePatientFromCaregiver"
+    ></assign-patient>
   </div>
 </template>
 
@@ -40,7 +49,10 @@
 import DeleteModal from "../components/DeleteModal";
 import AddCaregiverModal from "../components/DoctorAddModal";
 import EditCaregiverModal from "../components/DoctorEditModal";
-import CaregiversAssignedPatientsModal from '../components/CaregiversAssignedPatients';
+import CaregiversAssignedPatientsModal from "../components/CaregiversAssignedPatients";
+import CaregiverAssignPatientModal from "../components/CaregiverAssignPatient";
+import Validator from "../../../../util/Validator";
+import getNextId from "../../../../util/getNextId";
 export default {
   data() {
     return {
@@ -106,11 +118,11 @@ export default {
       this.$refs.myAddModal.openDialog();
     },
     addCaregiver(caregiver) {
-      caregiver.Id =
-        this.tableData.length == 0
-          ? 1
-          : Math.max(...this.tableData.map(data => data.Id)) + 1;
+      if (!Validator.isValid(this.tableData, caregiver, "Name"))
+        return alert("caregiver already exists");
+      caregiver.Id = getNextId(this.tableData);
       this.tableData.push(caregiver);
+      this.$refs.myAddModal.closeDialog();
     },
     openUpdateModal(caregiver) {
       this.$refs.myEditModal.openDialog(caregiver);
@@ -121,13 +133,26 @@ export default {
     },
     openAssignedPatients(patients) {
       this.$refs.assignedPatients.openDialog(patients);
+    },
+    openAddPatientModal(caregiver) {
+      this.$refs.assignPatient.openDialog(caregiver);
+    },
+    addPatientToCaregiver(caregiver, patient) {
+      caregiver.Assigned_Patients.push(patient);
+    },
+    deletePatientFromCaregiver(caregiver, patient) {
+      let patientIndex = caregiver.Assigned_Patients.findIndex(
+        pt => pt.Id == patient.Id
+      );
+      caregiver.Assigned_Patients.splice(patientIndex, 1);
     }
   },
   components: {
     DeleteModal,
     AddModal: AddCaregiverModal,
     EditModal: EditCaregiverModal,
-    AssignedPatients: CaregiversAssignedPatientsModal
+    AssignedPatients: CaregiversAssignedPatientsModal,
+    AssignPatient: CaregiverAssignPatientModal
   }
 };
 </script>
