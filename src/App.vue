@@ -1,13 +1,11 @@
 <template>
   <div id="app">
-    <dashboard></dashboard>
+    <router-view></router-view>
   </div>
 </template>
 <script>
-import Dashboard from "./components/doctor/Dashboard";
 export default {
   components: {
-    Dashboard
   }
 };
 </script>

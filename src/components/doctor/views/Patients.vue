@@ -125,6 +125,7 @@ export default {
     addMedicalRecord(userId, medicationPlan) {
       let user = this.tableData.find(user => user.Id === userId);
       medicationPlan.Id = getNextId(user.Medical_Record);
+      console.log(medicationPlan);
       user.Medical_Record.push(medicationPlan);
     },
     openMedicalHistoryModal(patient) {

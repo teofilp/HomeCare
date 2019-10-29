@@ -1,8 +1,8 @@
 <template>
   <ul>
-    <router-link tag="li" active-class="active" to="patients">Patients</router-link>
-    <router-link tag="li" active-class="active" to="caregivers">Caregivers</router-link>
-    <router-link tag="li" active-class="active" to="medications">Medications</router-link>
+    <router-link tag="li" active-class="active" to="/doctor/patients">Patients</router-link>
+    <router-link tag="li" active-class="active" to="/doctor/caregivers">Caregivers</router-link>
+    <router-link tag="li" active-class="active" to="/doctor/medications">Medications</router-link>
   </ul>
 </template>
 

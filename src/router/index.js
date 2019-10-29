@@ -1,26 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import Doctor from '../components/doctor/Index';
 import DoctorsCaregivers from '../components/doctor/views/Caregivers';
 import DoctorsPatients from '../components/doctor/views/Patients';
 import DoctorsMedications from '../components/doctor/views/Medications';
+import Patient from '../components/patient/Index';
+import Caregiver from '../components/caregiver/Index';
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/caregivers',
-    name: 'doctorsCaregivers',
-    component: DoctorsCaregivers
+    path: '/doctor',
+    component: Doctor,
+    children: [
+      {
+        path: 'caregivers',
+        name: 'doctorsCaregivers',
+        component: DoctorsCaregivers
+      },
+      {
+        path: 'patients',
+        name: 'doctorsPatients',
+        component: DoctorsPatients
+      },
+      {
+        path: 'medications',
+        name: 'doctorsMedications',
+        component: DoctorsMedications
+      },
+    ]
   },
   {
-    path: '/patients',
-    name: 'doctorsPatients',
-    component: DoctorsPatients
+    path: '/patient/:id',
+    component: Patient
   },
   {
-    path: '/medications',
-    name: 'doctorsMedications',
-    component: DoctorsMedications
+    path: '/caregiver/:id',
+    component: Caregiver
   }
 
 ]
