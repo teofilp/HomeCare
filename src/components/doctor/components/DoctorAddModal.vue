@@ -64,9 +64,6 @@ export default {
       this.birth_date = null;
       this.gender = null;
     },
-    closeDialog() {
-      $("#addModal").modal("hide");
-    },
     saveCaregiver() {
       this.add({
         Name: this.name,
@@ -74,6 +71,13 @@ export default {
         Birth_Date: this.birth_date,
         Gender: this.gender
       });
+
+      this.name = "";
+      this.address = "";
+      this.birth_date = null;
+      this.gender = null;
+
+      $("#addModal").modal("hide");
     }
   }
 };

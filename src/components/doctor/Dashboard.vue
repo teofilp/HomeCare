@@ -2,9 +2,7 @@
   <div class="container">
     <div class="dashboard_wrapper">
       <doctors-menu></doctors-menu>
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
+      <router-view></router-view>
     </div>
   </div>
 </template>
