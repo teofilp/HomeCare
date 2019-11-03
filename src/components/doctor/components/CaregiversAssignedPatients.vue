@@ -59,6 +59,7 @@ export default {
       $("#assignedPatients").modal("show");
       this.patients = patients;
     },
+
     closeDialog() {
       $("#assignedPatients").modal("hide");
     }

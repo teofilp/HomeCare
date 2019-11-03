@@ -29,9 +29,11 @@ export default {
       this.id = id;
       $("#myModal").modal("show");
     },
+
     closeDialog() {
       $("#myModal").modal("hide");
     },
+
     confirmDeletion() {
       $("#myModal").modal("hide");
       this.delete(this.id);
@@ -39,6 +41,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-</style>

@@ -136,9 +136,11 @@ export default {
       $("#addPatientToCaregiverModal").modal("show");
       this.searchPatientName = "";
     },
+
     closeDialog() {
       $("#addPatientToCaregiverModal").modal("hide");
     },
+
     getResults(searchPatientName) {
       if (searchPatientName == "") return [];
       return this.allPatients.filter(
@@ -147,10 +149,12 @@ export default {
           patient.name.toLowerCase().startsWith(searchPatientName.toLowerCase())
       );
     },
+
     addPatientToCaregiver(patient) {
       this.assign(this.caregiver, patient);
       this.searchPatientName = "";
     },
+
     deletePatientFromCaregiver(patient) {
       this.unassign(this.caregiver, patient);
     }

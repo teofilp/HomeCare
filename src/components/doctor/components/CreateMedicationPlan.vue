@@ -144,9 +144,11 @@ export default {
       this.planMedications = [];
       this.searchMedication = "";
     },
+
     closeDialog() {
       $("#createMedicationPlan").modal("hide");
     },
+
     getResults(searchKey) {
       if (searchKey == "") return [];
       return this.availableMedication.filter(
@@ -155,15 +157,18 @@ export default {
           med.name.toLowerCase().startsWith(searchKey)
       );
     },
+
     addMedicationToPlan(med) {
       this.planMedications.push(med);
       this.searchMedication = "";
     },
+
     deleteMedicationFromPlan(med) {
       let index = this.planMedications.findIndex(md => md.id === med.id);
       delete this.planMedications[index].intakeIntervals;
       this.planMedications.splice(index, 1);
     },
+
     saveMedicationPlanToUser() {
       this.addMedicationPlan(this.id, {
         treatmentPeriod: this.treatmentPeriod,

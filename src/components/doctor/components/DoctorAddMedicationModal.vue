@@ -39,7 +39,12 @@
             <button class="btn btn-primary my-2 px-4" @click="addSideEffect">Add</button>
 
             <p
-              class="pt-1 sideEffect"
+              class="pt-1"
+              style="text-transform: uppercase;
+                letter-spacing: 2px;
+                background: #efefef;
+                margin-bottom: 0.5rem;
+                padding-left: 0.5rem;"
               v-for="sideEf in sideEffects"
               :key="sideEf"
               @click="deleteSideEffect(sideEf)"
@@ -116,16 +121,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.sideEffect {
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  background: #efefef;
-  margin-bottom: 0.5rem;
-  padding-left: 0.5rem;
-}
-
-.sideEffect:hover {
-  cursor: pointer;
-}
-</style>

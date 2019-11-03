@@ -1,44 +1,49 @@
 <template>
-  <ul>
-    <router-link tag="li" active-class="active" to="/doctor/patients">Patients</router-link>
-    <router-link tag="li" active-class="active" to="/doctor/caregivers">Caregivers</router-link>
-    <router-link tag="li" active-class="active" to="/doctor/medications">Medications</router-link>
-  </ul>
+  <nav
+    class="navbar navbar-expand-lg navbar-light mb-5"
+    style="background: rgba(71, 196, 175, 0.3);"
+  >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <router-link class="nav-item active" tag="li" active-class="active" to="/doctor/patients">
+          <a class="nav-link" href="#">
+            Patients
+            <span class="sr-only">(current)</span>
+          </a>
+        </router-link>
+        <router-link class="nav-item active" tag="li" active-class="active" to="/doctor/caregivers">
+          <a class="nav-link" href="#">
+            Caregivers
+            <span class="sr-only">(current)</span>
+          </a>
+        </router-link>
+        <router-link
+          class="nav-item active"
+          tag="li"
+          active-class="active"
+          to="/doctor/medications"
+        >
+          <a class="nav-link" href="#">
+            Medications
+            <span class="sr-only">(current)</span>
+          </a>
+        </router-link>
+      </ul>
+    </div>
+  </nav>
 </template>
 
 <script>
 export default {};
 </script>
-
-<style scoped>
-ul {
-  padding: 1.75rem;
-  list-style: none;
-}
-
-ul li {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.9rem;
-  margin: 0.25rem;
-  border-radius: 0.2rem;
-  border: 0px solid rgb(21, 146, 125);
-
-  color: white;
-  background: linear-gradient(
-    to right,
-    rgba(71, 196, 175),
-    rgba(71, 196, 175, 0.6)
-  );
-
-  transition: all 0.3s;
-}
-
-ul li:hover {
-  cursor: pointer;
-}
-
-ul li.active {
-  border-width: 2px;
-}
-</style>

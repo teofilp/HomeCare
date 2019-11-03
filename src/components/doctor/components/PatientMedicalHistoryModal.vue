@@ -98,6 +98,7 @@ export default {
       this.patient = Object.assign({}, patient);
       this.patient.medicalRecord.reverse();
     },
+
     closeDialog() {
       $("#medicalHistoryModal").modal("hide");
     }

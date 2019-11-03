@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <button class="btn btn-info" @click="openAddDialog">Add Patient</button>
-    <table class="table table-striped">
+    <button class="btn btn-info float-right" @click="openAddDialog">Add Patient</button>
+    <table class="table table-striped text-center">
       <thead>
         <th v-for="column in adminTableColumns" :key="column">{{column}}</th>
       </thead>
@@ -50,6 +50,8 @@ import AddPatientModal from "../components/DoctorAddModal";
 import EditPatientModal from "../components/DoctorEditModal";
 import CreateMedicationPlan from "../components/CreateMedicationPlan";
 import PatientMedicalHistoryModal from "../components/PatientMedicalHistoryModal";
+import Validator from "../../../../util/Validator";
+import getNextId from "../../../../util/getNextId";
 export default {
   data() {
     return {
@@ -94,40 +96,48 @@ export default {
     openDeleteModal(id) {
       this.$refs.myDeleteModal.openDialog(id);
     },
+
     deleteCaregiver(id) {
       let index = this.tableData.findIndex(data => data.id === id);
       this.tableData.splice(index, 1);
     },
+
     openAddDialog() {
       this.$refs.myAddModal.openDialog();
     },
+
     addPatient(patient) {
-      patient.id = this.getNextId(this.tableData);
+      if (!Validator.isValid(this.tableData, patient, "name"))
+        return alert("caregiver already exists");
+
+      patient.id = getNextId(this.tableData);
       patient.medicalRecord = [];
       this.tableData.push(patient);
     },
+
     openUpdateModal(caregiver) {
       this.$refs.myEditModal.openDialog(caregiver);
     },
+
     updatePatient(caregiver) {
       let oldCaregiver = this.tableData.find(cg => cg.id == caregiver.id);
       Object.assign(oldCaregiver, caregiver);
     },
+
     openCreateMedicationPlanModal(id) {
       this.$refs.createMedicationPlanRef.openDialog(id);
     },
+
     addMedicalRecord(userId, medicationPlan) {
       let user = this.tableData.find(user => user.id === userId);
       medicationPlan.id = getNextId(user.medicalRecord);
       user.medicalRecord.push(medicationPlan);
     },
+
     openMedicalHistoryModal(patient) {
       if (patient.medicalRecord.length === 0)
         return alert("Patient has no Medical History");
       this.$refs.medicalHistory.openDialog(patient);
-    },
-    getNextId(list) {
-      return list.length == 0 ? 1 : Math.max(...list.map(data => data.id)) + 1;
     }
   },
   components: {
@@ -140,26 +150,3 @@ export default {
 };
 </script>
 
-<style scoped>
-table {
-  text-align: center;
-}
-tbody tr:nth-of-type(odd) {
-  background: rgba(71, 196, 175, 0.7);
-  color: white;
-}
-
-tbody tr:nth-of-type(even) {
-  background: rgba(71, 196, 175, 0.2);
-  color: white;
-}
-
-.btn-info {
-  float: right;
-}
-
-.btn-info:after {
-  content: "";
-  clear: both;
-}
-</style>

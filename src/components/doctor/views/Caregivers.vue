@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <button class="btn btn-info" @click="openAddDialog">Add Caregiver</button>
-    <table class="table table-striped">
+    <button class="btn btn-info float-right" @click="openAddDialog">Add Caregiver</button>
+    <table class="table table-striped text-center">
       <thead>
         <th v-for="column in adminTableColumns" :key="column">{{column}}</th>
       </thead>
@@ -44,6 +44,8 @@ import DeleteModal from "../components/DeleteModal";
 import AddCaregiverModal from "../components/DoctorAddModal";
 import EditCaregiverModal from "../components/DoctorEditModal";
 import CaregiversAssignedPatientsModal from "../components/CaregiversAssignedPatients";
+import Validator from "../../../../util/Validator";
+import getNextId from "../../../../util/getNextId";
 export default {
   data() {
     return {
@@ -101,27 +103,33 @@ export default {
     openDeleteModal(id) {
       this.$refs.myDeleteModal.openDialog(id);
     },
+
     deleteCaregiver(id) {
       let index = this.tableData.findIndex(data => data.id === id);
       this.tableData.splice(index, 1);
     },
+
     openAddDialog() {
       this.$refs.myAddModal.openDialog();
     },
+
     addCaregiver(caregiver) {
-      caregiver.id =
-        this.tableData.length == 0
-          ? 1
-          : Math.max(...this.tableData.map(data => data.id)) + 1;
+      if (!Validator.isValid(this.tableData, caregiver, "name"))
+        return alert("caregiver already exists");
+
+      caregiver.id = getNextId(this.tableData);
       this.tableData.push(caregiver);
     },
+
     openUpdateModal(caregiver) {
       this.$refs.myEditModal.openDialog(caregiver);
     },
+
     updateCaregiver(caregiver) {
       let oldCaregiver = this.tableData.find(cg => cg.id == caregiver.id);
       Object.assign(oldCaregiver, caregiver);
     },
+
     openAssignedPatients(patients) {
       this.$refs.assignedPatients.openDialog(patients);
     }
@@ -134,27 +142,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-table {
-  text-align: center;
-}
-tbody tr:nth-of-type(odd) {
-  background: rgba(71, 196, 175, 0.7);
-  color: white;
-}
-
-tbody tr:nth-of-type(even) {
-  background: rgba(71, 196, 175, 0.2);
-  color: white;
-}
-
-.btn-info {
-  float: right;
-}
-
-.btn-info:after {
-  content: "";
-  clear: both;
-}
-</style>

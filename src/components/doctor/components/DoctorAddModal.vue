@@ -64,6 +64,7 @@ export default {
       this.birth_date = null;
       this.gender = null;
     },
+
     saveCaregiver() {
       this.add({
         name: this.name,

@@ -65,6 +65,7 @@ export default {
       this.birth_date = caregiver.birthDate;
       this.gender = caregiver.gender;
     },
+
     saveUpdates() {
       this.update({
         id: this.id,
