@@ -6,21 +6,24 @@
         <th v-for="column in adminTableColumns" :key="column">{{column}}</th>
       </thead>
       <tbody>
-        <tr v-for="data in tableData" :key="data.Id">
-          <td>{{data.Id}}</td>
-          <td>{{data.Name}}</td>
-          <td>{{data.Birth_Date}}</td>
-          <td>{{data.Gender}}</td>
-          <td>{{data.Address}}</td>
+        <tr v-for="data in tableData" :key="data.id">
+          <td>{{data.id}}</td>
+          <td>{{data.name}}</td>
+          <td>{{data.birthDate}}</td>
+          <td>{{data.gender}}</td>
+          <td>{{data.address}}</td>
           <td>
-            <button class="btn btn-primary" @click="openMedicalHistoryModal(data)">Show Medical Record</button>
+            <button
+              class="btn btn-primary"
+              @click="openMedicalHistoryModal(data)"
+            >Show Medical Record</button>
           </td>
           <td>
             <button class="btn btn-warning mr-3" @click="openUpdateModal(data)">Edit</button>
-            <button class="btn btn-danger mr-3" @click="openDeleteModal(data.Id)">Delete</button>
+            <button class="btn btn-danger mr-3" @click="openDeleteModal(data.id)">Delete</button>
             <button
               class="btn btn-success"
-              @click="openCreateMedicationPlanModal(data.Id)"
+              @click="openCreateMedicationPlanModal(data.id)"
             >Create medication plan</button>
           </td>
         </tr>
@@ -46,7 +49,7 @@ import DeleteModal from "../components/DeleteModal";
 import AddPatientModal from "../components/DoctorAddModal";
 import EditPatientModal from "../components/DoctorEditModal";
 import CreateMedicationPlan from "../components/CreateMedicationPlan";
-import PatientMedicalHistoryModal from '../components/PatientMedicalHistoryModal';
+import PatientMedicalHistoryModal from "../components/PatientMedicalHistoryModal";
 export default {
   data() {
     return {
@@ -61,28 +64,28 @@ export default {
       ],
       tableData: [
         {
-          Id: 1,
-          Name: "Andrei",
-          Birth_Date: "2000-02-15",
-          Gender: "female",
-          Address: "ceva adresa",
-          Medical_Record: []
+          id: 1,
+          name: "Andrei",
+          birthDate: "2000-02-15",
+          gender: "female",
+          address: "ceva adresa",
+          medicalRecord: []
         },
         {
-          Id: 2,
-          Name: "Andrei",
-          Birth_Date: "2000-02-15",
-          Gender: "male",
-          Address: "ceva adresa",
-          Medical_Record: []
+          id: 2,
+          name: "Andrei",
+          birthDate: "2000-02-15",
+          gender: "male",
+          address: "ceva adresa",
+          medicalRecord: []
         },
         {
-          Id: 3,
-          Name: "Andrei",
-          Birth_Date: "2000-02-15",
-          Gender: "male",
-          Address: "ceva adresa",
-          Medical_Record: []
+          id: 3,
+          name: "Andrei",
+          birthDate: "2000-02-15",
+          gender: "male",
+          address: "ceva adresa",
+          medicalRecord: []
         }
       ]
     };
@@ -92,40 +95,39 @@ export default {
       this.$refs.myDeleteModal.openDialog(id);
     },
     deleteCaregiver(id) {
-      let index = this.tableData.findIndex(data => data.Id === id);
+      let index = this.tableData.findIndex(data => data.id === id);
       this.tableData.splice(index, 1);
     },
     openAddDialog() {
       this.$refs.myAddModal.openDialog();
     },
-    addPatient(caregiver) {
-      caregiver.Id = this.getNextId(this.tableData);
-      this.tableData.push(caregiver);
+    addPatient(patient) {
+      patient.id = this.getNextId(this.tableData);
+      patient.medicalRecord = [];
+      this.tableData.push(patient);
     },
     openUpdateModal(caregiver) {
       this.$refs.myEditModal.openDialog(caregiver);
     },
     updatePatient(caregiver) {
-      let oldCaregiver = this.tableData.find(cg => cg.Id == caregiver.Id);
+      let oldCaregiver = this.tableData.find(cg => cg.id == caregiver.id);
       Object.assign(oldCaregiver, caregiver);
     },
     openCreateMedicationPlanModal(id) {
       this.$refs.createMedicationPlanRef.openDialog(id);
     },
     addMedicalRecord(userId, medicationPlan) {
-      let user = this.tableData.find(user => user.Id === userId);
-      medicationPlan.Id = this.getNextId(user.Medical_Record);
-      user.Medical_Record.push(medicationPlan);
+      let user = this.tableData.find(user => user.id === userId);
+      medicationPlan.id = this.getNextId(user.medicalRecord);
+      user.medicalRecord.push(medicationPlan);
     },
     openMedicalHistoryModal(patient) {
-      if(patient.Medical_Record.length === 0)
-        return alert('Patient has no Medical History');
+      if (patient.medicalRecord.length === 0)
+        return alert("Patient has no Medical History");
       this.$refs.medicalHistory.openDialog(patient);
     },
     getNextId(list) {
-      return list.length == 0
-          ? 1
-          : Math.max(...list.map(data => data.Id)) + 1;
+      return list.length == 0 ? 1 : Math.max(...list.map(data => data.id)) + 1;
     }
   },
   components: {

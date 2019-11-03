@@ -16,43 +16,33 @@
           </button>
         </div>
         <div class="modal-body">
-            <table class="table table-borderless"> 
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Birth Date</th>
-                        <th>Gender</th>
-                        <th>Address</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="patient in patients" :key="patient.Id">
-                        <td>
-                            {{patient.Id}}
-                        </td>
-                        <td>
-                            {{patient.Name}}
-                        </td>
-                        
-                        <td>
-                            {{patient.Birth_Date}}
-                        </td>
-                        <td>
-                            {{patient.Gender}}
-                        </td>
-                        <td>
-                            {{patient.Address}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Birth Date</th>
+                <th>Gender</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="patient in patients" :key="patient.id">
+                <td>{{patient.id}}</td>
+                <td>{{patient.name}}</td>
+
+                <td>{{patient.birthDate}}</td>
+                <td>{{patient.gender}}</td>
+                <td>{{patient.address}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 

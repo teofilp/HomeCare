@@ -16,63 +16,63 @@
           </button>
         </div>
         <div class="modal-body">
-            <div class="form-group">
-              <label for="treatmentPeriod" class="col-form-label">Treatment Period:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="treatmentPeriod"
-                v-model="treatmentPeriod"
-                placeholder="e.g: 3 months"
-              />
-            </div>
-            <div class="form-group">
-              <label for="medication" class="col-form-label">Search medication:</label>
-              <input
-                class="form-control"
-                id="medication"
-                v-model="searchMedication"
-                placeholder="e.g: Nurofen"
-              />
-              <hr v-if="getResults(searchMedication).length > 0" />
-              <div id="searchResults">
-                <div
-                  class="row mb-3 px-3"
-                  v-for="result in getResults(searchMedication)"
-                  :key="result.Id"
-                >
-                  <input type="text" class="form-control col-4" disabled :value="result.Name" />
-                  <input
-                    type="number"
-                    class="form-control col-4 offset-sm-1"
-                    placeholder="times / day"
-                    v-model="result.Intake_Intervals"
-                  />
-                  <button
-                    class="btn btn-primary col-2 offset-sm-1"
-                    @click="addMedicationToPlan(result)"
-                  >Add</button>
-                </div>
-              </div>
-              <h5
-                v-if="getResults(searchMedication).length == 0 && searchMedication !== ''"
-              >No result for the given name</h5>
-              <div id="planMedications" class="mt-2">
-                <div class="row mb-2 px-3" v-for="med in planMedications" :key="med.Id">
-                  <input type="text" class="form-control col-4" :value="med.Name" disabled />
-                  <input
-                    type="text"
-                    class="form-control col-4 offset-sm-1"
-                    :value="med.Intake_Intervals + ' times / day'"
-                    disabled
-                  />
-                  <button
-                    class="btn btn-danger col-2 offset-sm-1"
-                    @click="deleteMedicationFromPlan(med)"
-                  >Delete</button>
-                </div>
+          <div class="form-group">
+            <label for="treatmentPeriod" class="col-form-label">Treatment Period:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="treatmentPeriod"
+              v-model="treatmentPeriod"
+              placeholder="e.g: 3 months"
+            />
+          </div>
+          <div class="form-group">
+            <label for="medication" class="col-form-label">Search medication:</label>
+            <input
+              class="form-control"
+              id="medication"
+              v-model="searchMedication"
+              placeholder="e.g: Nurofen"
+            />
+            <hr v-if="getResults(searchMedication).length > 0" />
+            <div id="searchResults">
+              <div
+                class="row mb-3 px-3"
+                v-for="result in getResults(searchMedication)"
+                :key="result.id"
+              >
+                <input type="text" class="form-control col-4" disabled :value="result.name" />
+                <input
+                  type="number"
+                  class="form-control col-4 offset-sm-1"
+                  placeholder="times / day"
+                  v-model="result.intakeIntervals"
+                />
+                <button
+                  class="btn btn-primary col-2 offset-sm-1"
+                  @click="addMedicationToPlan(result)"
+                >Add</button>
               </div>
             </div>
+            <h5
+              v-if="getResults(searchMedication).length == 0 && searchMedication !== ''"
+            >No result for the given name</h5>
+            <div id="planMedications" class="mt-2">
+              <div class="row mb-2 px-3" v-for="med in planMedications" :key="med.id">
+                <input type="text" class="form-control col-4" :value="med.Name" disabled />
+                <input
+                  type="text"
+                  class="form-control col-4 offset-sm-1"
+                  :value="med.intakeIntervals + ' times / day'"
+                  disabled
+                />
+                <button
+                  class="btn btn-danger col-2 offset-sm-1"
+                  @click="deleteMedicationFromPlan(med)"
+                >Delete</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -98,40 +98,40 @@ export default {
       planMedications: [],
       availableMedication: [
         {
-          Id: 1,
-          Name: "Nurofen",
-          Side_Effects: ["N/a"],
-          Dosage: "1 pill"
+          id: 1,
+          name: "Nurofen",
+          sideEffects: ["N/a"],
+          dosage: "1 pill"
         },
         {
           Id: 2,
-          Name: "Paracetamol",
-          Side_Effects: ["N/a"],
-          Dosage: "2 pills"
+          name: "Paracetamol",
+          sideEffects: ["N/a"],
+          dosage: "2 pills"
         },
         {
-          Id: 3,
-          Name: "Xanax",
-          Side_Effects: ["N/a"],
-          Dosage: "5 pills"
+          id: 3,
+          name: "Xanax",
+          sideEffects: ["N/a"],
+          dosage: "5 pills"
         },
         {
-          Id: 4,
-          Name: "Med 1",
-          Side_Effects: ["N/a"],
-          Dosage: "1 pill"
+          id: 4,
+          name: "Med 1",
+          sideEffects: ["N/a"],
+          dosage: "1 pill"
         },
         {
-          Id: 5,
-          Name: "Med 2",
-          Side_Effects: ["N/a"],
-          Dosage: "2 pills"
+          id: 5,
+          name: "Med 2",
+          sideEffects: ["N/a"],
+          dosage: "2 pills"
         },
         {
-          Id: 6,
-          Name: "Med 3",
-          Side_Effects: ["N/a"],
-          Dosage: "5 pills"
+          id: 6,
+          name: "Med 3",
+          sideEffects: ["N/a"],
+          dosage: "5 pills"
         }
       ]
     };
@@ -151,8 +151,8 @@ export default {
       if (searchKey == "") return [];
       return this.availableMedication.filter(
         med =>
-          this.planMedications.findIndex(md => md.Id == med.Id) == -1 &&
-          med.Name.toLowerCase().startsWith(searchKey)
+          this.planMedications.findIndex(md => md.id == med.id) == -1 &&
+          med.name.toLowerCase().startsWith(searchKey)
       );
     },
     addMedicationToPlan(med) {
@@ -160,14 +160,14 @@ export default {
       this.searchMedication = "";
     },
     deleteMedicationFromPlan(med) {
-      let index = this.planMedications.findIndex(md => md.Id === med.Id);
-      delete this.planMedications[index].Intake_Intervals;
+      let index = this.planMedications.findIndex(md => md.id === med.id);
+      delete this.planMedications[index].intakeIntervals;
       this.planMedications.splice(index, 1);
     },
     saveMedicationPlanToUser() {
       this.addMedicationPlan(this.id, {
-        Treatment_Period: this.treatmentPeriod,
-        Plan_Medications: this.planMedications
+        treatmentPeriod: this.treatmentPeriod,
+        planMedications: this.planMedications
       });
 
       this.closeDialog();

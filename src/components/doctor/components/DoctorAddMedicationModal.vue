@@ -100,9 +100,9 @@ export default {
       if (this.sideEffects.length == 0) this.sideEffects.push("N/a");
 
       this.add({
-        Name: this.name,
-        Side_Effects: this.sideEffects,
-        Dosage: this.dosage
+        name: this.name,
+        sideEffects: this.sideEffects,
+        dosage: this.dosage
       });
 
       this.name = "";

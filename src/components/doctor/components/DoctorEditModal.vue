@@ -59,19 +59,19 @@ export default {
   methods: {
     openDialog(caregiver) {
       $("#updateModal").modal("show");
-      this.id = caregiver.Id;
-      this.name = caregiver.Name;
-      this.address = caregiver.Address;
-      this.birth_date = caregiver.Birth_Date;
-      this.gender = caregiver.Gender;
+      this.id = caregiver.id;
+      this.name = caregiver.name;
+      this.address = caregiver.address;
+      this.birth_date = caregiver.birthDate;
+      this.gender = caregiver.gender;
     },
     saveUpdates() {
       this.update({
-        Id: this.id,
-        Name: this.name,
-        Address: this.address,
-        Birth_Date: this.birth_date,
-        Gender: this.gender
+        id: this.id,
+        name: this.name,
+        address: this.address,
+        birthDate: this.birth_date,
+        gender: this.gender
       });
 
       this.name = "";

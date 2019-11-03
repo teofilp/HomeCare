@@ -6,18 +6,21 @@
         <th v-for="column in adminTableColumns" :key="column">{{column}}</th>
       </thead>
       <tbody>
-        <tr v-for="data in tableData" :key="data.Id">
-          <td>{{data.Id}}</td>
-          <td>{{data.Name}}</td>
-          <td>{{data.Birth_Date}}</td>
-          <td>{{data.Gender}}</td>
-          <td>{{data.Address}}</td>
+        <tr v-for="data in tableData" :key="data.id">
+          <td>{{data.id}}</td>
+          <td>{{data.name}}</td>
+          <td>{{data.birthDate}}</td>
+          <td>{{data.gender}}</td>
+          <td>{{data.address}}</td>
           <td>
-            <button class="btn btn-primary" @click="openAssignedPatients(data.Assigned_Patients)">Show Patients</button>
+            <button
+              class="btn btn-primary"
+              @click="openAssignedPatients(data.patients)"
+            >Show Patients</button>
           </td>
           <td>
             <button class="btn btn-warning mr-3" @click="openUpdateModal(data)">Edit</button>
-            <button class="btn btn-danger" @click="openDeleteModal(data.Id)">Delete</button>
+            <button class="btn btn-danger" @click="openDeleteModal(data.id)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -40,7 +43,7 @@
 import DeleteModal from "../components/DeleteModal";
 import AddCaregiverModal from "../components/DoctorAddModal";
 import EditCaregiverModal from "../components/DoctorEditModal";
-import CaregiversAssignedPatientsModal from '../components/CaregiversAssignedPatients';
+import CaregiversAssignedPatientsModal from "../components/CaregiversAssignedPatients";
 export default {
   data() {
     return {
@@ -55,41 +58,41 @@ export default {
       ],
       tableData: [
         {
-          Id: 1,
-          Name: "Andrei",
-          Birth_Date: "2000-02-15",
-          Gender: "female",
-          Address: "ceva adresa",
-          Assigned_Patients: [
+          id: 1,
+          name: "Andrei",
+          birthDate: "2000-02-15",
+          gender: "female",
+          address: "ceva adresa",
+          patients: [
             {
-              Id: 2,
-              Name: "Andrei",
-              Birth_Date: "2000-02-15",
-              Gender: "male",
-              Address: "ceva adresa"
+              id: 2,
+              name: "Andrei",
+              birthDate: "2000-02-15",
+              gender: "male",
+              address: "ceva adresa"
             },
             {
-              Id: 3,
-              Name: "Andrei",
-              Birth_Date: "2000-02-15",
-              Gender: "male",
-              Address: "ceva adresa"
+              id: 3,
+              name: "Andrei",
+              birthDate: "2000-02-15",
+              gender: "male",
+              address: "ceva adresa"
             }
           ]
         },
         {
-          Id: 2,
-          Name: "Andrei",
-          Birth_Date: "2000-02-15",
-          Gender: "male",
-          Address: "ceva adresa"
+          id: 2,
+          name: "Andrei",
+          birthDate: "2000-02-15",
+          gender: "male",
+          address: "ceva adresa"
         },
         {
-          Id: 3,
-          Name: "Andrei",
-          Birth_Date: "2000-02-15",
-          Gender: "male",
-          Address: "ceva adresa"
+          id: 3,
+          name: "Andrei",
+          birthDate: "2000-02-15",
+          gender: "male",
+          address: "ceva adresa"
         }
       ]
     };
@@ -99,24 +102,24 @@ export default {
       this.$refs.myDeleteModal.openDialog(id);
     },
     deleteCaregiver(id) {
-      let index = this.tableData.findIndex(data => data.Id === id);
+      let index = this.tableData.findIndex(data => data.id === id);
       this.tableData.splice(index, 1);
     },
     openAddDialog() {
       this.$refs.myAddModal.openDialog();
     },
     addCaregiver(caregiver) {
-      caregiver.Id =
+      caregiver.id =
         this.tableData.length == 0
           ? 1
-          : Math.max(...this.tableData.map(data => data.Id)) + 1;
+          : Math.max(...this.tableData.map(data => data.id)) + 1;
       this.tableData.push(caregiver);
     },
     openUpdateModal(caregiver) {
       this.$refs.myEditModal.openDialog(caregiver);
     },
     updateCaregiver(caregiver) {
-      let oldCaregiver = this.tableData.find(cg => cg.Id == caregiver.Id);
+      let oldCaregiver = this.tableData.find(cg => cg.id == caregiver.id);
       Object.assign(oldCaregiver, caregiver);
     },
     openAssignedPatients(patients) {

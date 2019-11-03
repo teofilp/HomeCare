@@ -6,18 +6,18 @@
         <th v-for="column in adminTableColumns" :key="column">{{column}}</th>
       </thead>
       <tbody>
-        <tr v-for="data in tableData" :key="data.Id">
-          <td>{{data.Id}}</td>
-          <td>{{data.Name}}</td>
+        <tr v-for="data in tableData" :key="data.id">
+          <td>{{data.id}}</td>
+          <td>{{data.name}}</td>
           <td>
             <ul>
-              <li v-for="side in data.Side_Effects" :key="side">{{side}}</li>
+              <li v-for="side in data.sideEffects" :key="side">{{side}}</li>
             </ul>
           </td>
-          <td>{{data.Dosage}}</td>
+          <td>{{data.dosage}}</td>
           <td>
             <button class="btn btn-warning mr-3" @click="openUpdateModal(data)">Edit</button>
-            <button class="btn btn-danger mr-3" @click="openDeleteModal(data.Id)">Delete</button>
+            <button class="btn btn-danger mr-3" @click="openDeleteModal(data.id)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -45,22 +45,22 @@ export default {
       adminTableColumns: ["Id", "Name", "Side Effects", "Dosage", "Operations"],
       tableData: [
         {
-          Id: 1,
-          Name: "Nurofen",
-          Side_Effects: ["N/a"],
-          Dosage: "1 pill"
+          id: 1,
+          name: "Nurofen",
+          sideEffects: ["N/a"],
+          dosage: "1 pill"
         },
         {
-          Id: 2,
-          Name: "Nurofen",
-          Side_Effects: ["N/a"],
-          Dosage: "2 pills"
+          id: 2,
+          name: "Nurofen",
+          sideEffects: ["N/a"],
+          dosage: "2 pills"
         },
         {
-          Id: 3,
-          Name: "Nurofen",
-          Side_Effects: ["N/a"],
-          Dosage: "5 pills"
+          id: 3,
+          name: "Nurofen",
+          sideEffects: ["N/a"],
+          dosage: "5 pills"
         }
       ]
     };
@@ -70,7 +70,7 @@ export default {
       this.$refs.myDeleteModal.openDialog(id);
     },
     deleteMedication(id) {
-      let index = this.tableData.findIndex(data => data.Id === id);
+      let index = this.tableData.findIndex(data => data.id === id);
       this.tableData.splice(index, 1);
     },
     confirmDeletion(id) {
@@ -80,17 +80,17 @@ export default {
       this.$refs.myAddModal.openDialog();
     },
     addMedication(medication) {
-      medication.Id =
+      medication.id =
         this.tableData.length == 0
           ? 1
-          : Math.max(...this.tableData.map(data => data.Id)) + 1;
+          : Math.max(...this.tableData.map(data => data.id)) + 1;
       this.tableData.push(medication);
     },
     openUpdateModal(medication) {
       this.$refs.myEditModal.openDialog(medication);
     },
     updateMedication(medication) {
-      let oldMedication = this.tableData.find(cg => cg.Id == medication.Id);
+      let oldMedication = this.tableData.find(cg => cg.id == medication.id);
       Object.assign(oldMedication, medication);
     }
   },

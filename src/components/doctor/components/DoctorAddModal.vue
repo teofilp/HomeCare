@@ -66,10 +66,10 @@ export default {
     },
     saveCaregiver() {
       this.add({
-        Name: this.name,
-        Address: this.address,
-        Birth_Date: this.birth_date,
-        Gender: this.gender
+        name: this.name,
+        address: this.address,
+        birthDate: this.birth_date,
+        gender: this.gender
       });
 
       this.name = "";

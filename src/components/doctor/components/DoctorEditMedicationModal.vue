@@ -82,11 +82,11 @@ export default {
   methods: {
     openDialog(medication) {
       $("#editMedication").modal("show");
-      this.id = medication.Id;
-      if (medication.Side_Effects[0] !== "N/a")
-        this.sideEffects = [...medication.Side_Effects];
-      this.name = medication.Name;
-      this.dosage = medication.Dosage;
+      this.id = medication.id;
+      if (medication.sideEffects[0] !== "N/a")
+        this.sideEffects = [...medication.sideEffects];
+      this.name = medication.name;
+      this.dosage = medication.dosage;
     },
 
     closeDialog() {
@@ -107,10 +107,10 @@ export default {
       if (this.sideEffects.length == 0) this.sideEffects.push("N/a");
 
       this.update({
-        Id: this.id,
-        Name: this.name,
-        Side_Effects: this.sideEffects,
-        Dosage: this.dosage
+        id: this.id,
+        name: this.name,
+        sideEffects: this.sideEffects,
+        dosage: this.dosage
       });
 
       this.name = "";

@@ -16,57 +16,65 @@
           </button>
         </div>
         <div class="modal-body">
-            <table class="table table-borderless"> 
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Birth Date</th>
-                        <th>Gender</th>
-                        <th>Address</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            {{patient.Id}}
-                        </td>
-                        <td>
-                            {{patient.Name}}
-                        </td>
-                        
-                        <td>
-                            {{patient.Birth_Date}}
-                        </td>
-                        <td>
-                            {{patient.Gender}}
-                        </td>
-                        <td>
-                            {{patient.Address}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <hr>
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Birth Date</th>
+                <th>Gender</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{patient.id}}</td>
+                <td>{{patient.name}}</td>
 
-            <div class="container">
-                <div v-for="medicalRecord in patient.Medical_Record" :key="medicalRecord.Id">
-                    <div class="row">
-                        <h5 class="col-12">Period of Treatment: {{medicalRecord.Treatment_Period}}</h5>
-                        <div class="row p-3 mb-2" v-for="medication in medicalRecord.Plan_Medications" :key="medication.Id">
-                            <div class="col-6">
-                                <label for="">Medication</label>
-                                <input type="text" class="form-control" name="" id="" disabled :value="medication.Name">
-                            </div>
-                            <div class="col-5 ml-2">
-                                <label for="">Intake Intervals</label>
-                                <input type="text" class="form-control" name="" id="" disabled :value="medication.Intake_Intervals + ' times / day'">
-                            </div>
-                        </div>
-                    </div>
-                <hr>
+                <td>{{patient.birthDate}}</td>
+                <td>{{patient.gender}}</td>
+                <td>{{patient.address}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <hr />
+
+          <div class="container">
+            <div v-for="medicalRecord in patient.medicalRecord" :key="medicalRecord.id">
+              <div class="row">
+                <h5 class="col-12">Period of Treatment: {{medicalRecord.treatmentPeriod}}</h5>
+                <div
+                  class="row p-3 mb-2"
+                  v-for="medication in medicalRecord.planMedications"
+                  :key="medication.id"
+                >
+                  <div class="col-6">
+                    <label for>Medication</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name
+                      id
+                      disabled
+                      :value="medication.name"
+                    />
+                  </div>
+                  <div class="col-5 ml-2">
+                    <label for>Intake Intervals</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name
+                      id
+                      disabled
+                      :value="medication.intakeIntervals + ' times / day'"
+                    />
+                  </div>
                 </div>
+              </div>
+              <hr />
             </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -81,14 +89,14 @@ export default {
   props: [],
   data() {
     return {
-      patient: {},
+      patient: {}
     };
   },
   methods: {
     openDialog(patient) {
       $("#medicalHistoryModal").modal("show");
       this.patient = Object.assign({}, patient);
-      this.patient.Medical_Record.reverse();
+      this.patient.medicalRecord.reverse();
     },
     closeDialog() {
       $("#medicalHistoryModal").modal("hide");
