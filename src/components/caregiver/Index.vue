@@ -1,5 +1,17 @@
 <template>
-  <div class="dashboard_wrapper">
+  <div
+    style=" 
+        position: relative;
+        width: 50%;
+        max-height: 75vh;
+        background: rgba(71, 196, 175, 0.3);
+        box-shadow: 1px 4px 3px #ccc;
+        border-radius: 0.5rem;
+        margin-top: 12.5vh;
+        margin-left: 25%;
+        overflow: auto;
+        text-align: center;"
+  >
     <table class="table table-borderless">
       <thead>
         <tr>
@@ -55,29 +67,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.dashboard_wrapper {
-  position: relative;
-  width: 50%;
-  max-height: 75vh;
-  background: rgba(71, 196, 175, 0.3);
-  box-shadow: 1px 4px 3px #ccc;
-  border-radius: 0.5rem;
-  margin-top: 12.5vh;
-  margin-left: 25%;
-  overflow: auto;
-  text-align: center;
-}
-
-::-webkit-scrollbar {
-  width: 0.2rem;
-}
-::-webkit-scrollbar-track {
-  background: rgba(71, 196, 175, 0.3);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(71, 196, 175, 0.5);
-}
-</style>
